@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout | Panadería Verde</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <!-- Mismo header que index.html -->
+  </header>
+
+  <main class="container checkout">
+    <h2>Finalizar Compra</h2>
+    
+    <div class="resumen-pedido">
+      <h3>Tu Pedido</h3>
+      <div id="resumen-productos">
+        <!-- JS cargará los productos del carrito aquí -->
+      </div>
+      <p class="total">Total: <span id="total-checkout">S/ 0.00</span></p>
+    </div>
+
+    <form id="checkout-form">
+      <h3>Método de Entrega</h3>
+      <label>
+        <input type="radio" name="entrega" value="delivery" checked> Delivery
+      </label>
+      <label>
+        <input type="radio" name="entrega" value="recoger"> Recoger en Tienda
+      </label>
+      
+      <div id="delivery-fields">
+        <input type="text" placeholder="Dirección" required>
+        <input type="text" placeholder="Referencia">
+      </div>
+
+      <h3>Método de Pago</h3>
+      <label>
+        <input type="radio" name="metodo-pago" value="tarjeta" checked> Tarjeta
+      </label>
+      <label>
+        <input type="radio" name="metodo-pago" value="yape"> Yape/Plin
+      </label>
+      
+      <button type="submit" class="btn-confirmar">Confirmar Pedido</button>
+    </form>
+  </main>
+
+  <script src="js/carrito.js"></script>
+  <script src="js/checkout.js"></script>
+  <script>
+    // Cargar carrito en checkout
+    const carrito = new Carrito();
+    const resumen = document.getElementById('resumen-productos');
+    
+    if (resumen) {
+      resumen.innerHTML = carrito.items.map(item => `
+        <div class="item-checkout">
+          <p>${item.nombre} - ${formatPrice(item.precio)}</p>
+        </div>
+      `).join('');
+      
+      document.getElementById('total-checkout').textContent = formatPrice(carrito.calcularTotal());
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Gracias por tu compra! | Panadería Verde</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <!-- Mismo header que index.html -->
+  </header>
+
+  <main class="container confirmacion">
+    <div class="confirmacion-card">
+      <h2>¡Pedido Confirmado!</h2>
+      <p>Tu pedido ha sido procesado exitosamente.</p>
+      <p class="numero-orden">N° de orden: <span id="orden-id">#${Math.floor(Math.random() * 10000)}</span></p>
+      
+      <div class="detalles-entrega">
+        <h3>Detalles de Entrega</h3>
+        <p id="metodo-entrega"></p>
+        <p id="direccion-entrega"></p>
+      </div>
+      
+      <a href="index.html" class="btn-volver">Volver al Inicio</a>
+    </div>
+  </main>
+
+  <script>
+    // Mostrar detalles del pedido desde localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const metodo = localStorage.getItem('metodoEntrega') || 'Recoger en Tienda';
+      document.getElementById('metodo-entrega').textContent = `Método: ${metodo}`;
+      
+      if (metodo === 'Delivery') {
+        document.getElementById('direccion-entrega').textContent = 
+          `Dirección: ${localStorage.getItem('direccionEntrega')}`;
+      }
+      
+      // Limpiar carrito después de la compra
+      localStorage.removeItem('carrito');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle Producto | Panadería Verde</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <!-- Mismo header que index.html -->
+  </header>
+
+  <main class="container producto-detalle">
+    <div id="producto-detalle-container">
+      <!-- JS cargará aquí los detalles -->
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Obtén el ID del producto de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    
+    // Busca el producto en el array de productos (de main.js)
+    const producto = productos.find(p => p.id == productId);
+    
+    if (producto) {
+      document.getElementById('producto-detalle-container').innerHTML = `
+        <img src="${producto.imagen}" alt="${producto.nombre}">
+        <h2>${producto.nombre}</h2>
+        <p class="precio">${formatPrice(producto.precio)}</p>
+        <p>${producto.descripcion}</p>
+        <button class="btn-agregar" data-id="${producto.id}">Agregar al carrito</button>
+      `;
+    }
+  </script>
+</body>
+</html>
