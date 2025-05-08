@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PanVerde | Panadería Ecológica</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <h1>Pan<span>Verde</span></h1>
+            </a>
+            <nav class="navbar">
+                <a href="#inicio">Inicio</a>
+                <a href="#catalogo">Catálogo</a>
+                <a href="#contacto">Contacto</a>
+                <a href="login.html" class="btn-login"><i class="fas fa-user"></i> Ingresar</a>
+                <a href="carrito.html" class="btn-carrito"><i class="fas fa-shopping-cart"></i> <span id="contador-carrito">0</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Catálogo de Productos -->
+    <section class="catalogo" id="catalogo">
+        <div class="container">
+            <h2>Nuestros Productos</h2>
+            <div class="filtros">
+                <input type="text" id="buscador" placeholder="Buscar...">
+                <select id="filtro-categoria">
+                    <option value="todos">Todos</option>
+                    <option value="tradicional">Panadería Tradicional</option>
+                    <option value="integral">Panadería Integral</option>
+                    <option value="dulce">Panadería Dulce</option>
+                    <option value="especial">Productos Especiales</option>
+                </select>
+            </div>
+            <div class="grid-productos" id="grid-productos">
+                <!-- Productos se cargarán dinámicamente con JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 PanVerde - Panadería Ecológica</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/carrito.js"></script>
+</body>
+</html>
