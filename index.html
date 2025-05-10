@@ -1,57 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PanVerde | Panadería Ecológica</title>
+    <title>Contacto | Panadería Verde</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <h1>Pan<span>Verde</span></h1>
-            </a>
-            <nav class="navbar">
-                <a href="#inicio">Inicio</a>
-                <a href="#catalogo">Catálogo</a>
-                <a href="#contacto">Contacto</a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  </head>
+  <body>
+      <header class="header">
+          <div class="container">
+              <nav class="navbar">
+                <a href="index.html" class="logo">
+                  <img src="img/otros/logo.png" alt="Logo Happy Pan" class="logo"></a>
+                <a href="index.html">Inicio</a>
+                <a href="producto.html">Productos</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="checkout.html">Pedidos</a>
                 <a href="login.html" class="btn-login"><i class="fas fa-user"></i> Ingresar</a>
-                <a href="carrito.html" class="btn-carrito"><i class="fas fa-shopping-cart"></i> <span id="contador-carrito">0</span></a>
-            </nav>
-        </div>
-    </header>
+                <a href="carrito.html" class="btn-carrito">
+                    <i class="fas fa-shopping-cart"></i> 
+                    <span id="contador-carrito">0</span>
+                </a>
+              </nav>
+          </div>
+      </header>
 
-    <!-- Catálogo de Productos -->
-    <section class="catalogo" id="catalogo">
-        <div class="container">
-            <h2>Nuestros Productos</h2>
-            <div class="filtros">
-                <input type="text" id="buscador" placeholder="Buscar...">
-                <select id="filtro-categoria">
-                    <option value="todos">Todos</option>
-                    <option value="tradicional">Panadería Tradicional</option>
-                    <option value="integral">Panadería Integral</option>
-                    <option value="dulce">Panadería Dulce</option>
-                    <option value="especial">Productos Especiales</option>
-                </select>
-            </div>
-            <div class="grid-productos" id="grid-productos">
-                <!-- Productos se cargarán dinámicamente con JS -->
-            </div>
-        </div>
+  <main class="container">
+    <section class="hero">
+      <h1>Panadería Artesanal Ecológica</h1>
+      <p>Productos horneados con ingredientes 100% naturales</p>
+      <a href="producto.html" class="btn-cta">Ver Catálogo</a>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2023 PanVerde - Panadería Ecológica</p>
+  <section class="bienvenida">
+    <div class="container">
+      <div class="bienvenida-content">
+        <div class="bienvenida-text">
+          <h2>Bienvenido a Happy Pan</h2>
+          <p>En <strong>Panadería Happy Pan</strong>, cada día nos dedicamos a hornear los panes y dulces más frescos y sabrosos de la ciudad. Nuestros maestros panaderos combinan técnicas tradicionales con ingredientes de la más alta calidad para ofrecerte una experiencia única.</p>
+          <a class="btn-cta" href="producto.html">Descubre nuestros productos</a>
         </div>
-    </footer>
+        <div class="bienvenida-img">
+          <img src="img/otros/panadera.png" alt="Maestra panadera trabajando">
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="js/main.js"></script>
-    <script src="js/helpers.js"></script>
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Contacto</h3>
+        <p>📞 <a href="tel:+51999999999">999 999 999</a></p>
+        <p>📧 <a href="mailto:panaderiarutadelsabor@gmail.com">panaderiaHappypan@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Redes</h4>
+        <p>
+          <a href="https://www.facebook.com/" target="_blank">Facebook</a> ·  
+          <a href="https://www.instagram.com/" target="_blank">Instagram</a> ·  
+          <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjVzeq5h5ONAxV6DbkGHeRpHjIQFnoECAsQAQ&url=https%3A%2F%2Fweb.whatsapp.com%2F&usg=AOvVaw1V09js0t2A_u6GXzP1jPsR&opi=89978449" target="_blank">WhatsApp</a>
+        </p>
+      </div>
+      <div>
+        <h5>Explora</h5>
+        <p>
+          <a href="index.html">Inicio</a>
+          <a href="producto.html">Productos</a>
+          <a href="contacto.html">Contacto</a>
+          <a href="checkout.html">Pedidos</a>
+        </p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 Panadería Happy Pan. Todos los derechos reservados.</p>
+  </footer>
+  <script src="js/carrito.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/carrito.js"></script>
 </body>
 </html>

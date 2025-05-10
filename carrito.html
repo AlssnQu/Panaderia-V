@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Carrito | Panadería Verde</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="js/carrito.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito | Panadería Happy Pan</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/carrito.js"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <a href="index.html" class="logo">
-        <h1>Pan<span>Verde</span></h1>
-      </a>
-      <nav class="navbar">
-        <a href="index.html">Inicio</a>
-        <a href="carrito.html" class="btn-carrito"><i class="fas fa-shopping-cart"></i> <span id="contador-carrito">0</span></a>
-      </nav>
-    </div>
-  </header>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="img/otros/logo.png" alt="Logo Happy Pan" class="logo">
+                </a>
+                <a href="index.html">Inicio</a>
+                <a href="producto.html">Productos</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="checkout.html">Pedidos</a>
+                <a href="carrito.html" class="btn-carrito">
+                    <i class="fas fa-shopping-cart"></i> 
+                    <span id="contador-carrito">0</span>
+                </a>
+            </nav>
+        </div>
+    </header>
 
-  <main class="container">
-    <h2>Tu Carrito</h2>
-    <div id="lista-carrito" class="lista-carrito">
-      <!-- Productos se cargarán con JS -->
-    </div>
-    <div class="total">
-      <h3>Total: S/ <span id="total-pagar">0.00</span></h3>
-      <button id="btn-pagar" class="btn-pagar">Pagar Ahora</button>
-    </div>
-  </main>
-
-  <script>
+    <main class="container">
+        <h2>Tu Carrito de Compras</h2>
+        <div id="lista-carrito" class="lista-carrito">
+            <!-- Los productos se cargarán aquí -->
+        </div>
+        
+        <div class="total">
+            <h3>Total: S/ <span id="total-pagar">0.00</span></h3>
+            <button id="btn-pagar" class="btn-pagar">Pagar Ahora</button>
+        </div>
+    </main>
+    
+    <script>
     document.addEventListener("DOMContentLoaded", () => {
       const carrito = new Carrito();
       const listaCarrito = document.getElementById("lista-carrito");
@@ -58,5 +66,12 @@
       });
     });
   </script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/sync.js"></script>
+    <script src="js/carrito.js"></script>
 </body>
 </html>

@@ -1,39 +1,184 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Detalle Producto | Panadería Verde</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <title>Contacto | Panadería Verde</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <header class="header">
-    <!-- Mismo header que index.html -->
-  </header>
+      <header class="header">
+          <div class="container">
+            <div class="nav-container">
+            <nav class="navbar">
+              <a href="index.html" class="logo-link">
+                <img src="img/otros/logo.png" alt="Logo Happy Pan" class="logo"></a>
+              <a href="index.html">Inicio</a>
+              <a href="producto.html">Productos</a>
+              <a href="contacto.html">Contacto</a>
+              <a href="checkout.html">Pedidos</a>
+              <a href="carrito.html" class="btn-carrito">
+                  <i class="fas fa-shopping-cart"></i> 
+                  <span id="contador-carrito">0</span>
+              </a>
+              </a>
+            </nav>
+          </div>
+      </header>
 
-  <main class="container producto-detalle">
-    <div id="producto-detalle-container">
-      <!-- JS cargará aquí los detalles -->
-    </div>
+  <main class="container">
+    <section class="filtros-section">
+      <h2>Nuestros Productos</h2>
+      <p>Descubre nuestra variedad de panes artesanales, pasteles y dulces recién horneados.</p>
+      
+      <!-- Filtro de categorías -->
+      <div class="filtro-categorias">
+        <button class="tab active" data-categoria="todos">Todos</button>
+        <button class="tab" data-categoria="panaderia_tradicional">Tradicional</button>
+        <button class="tab" data-categoria="panaderia_integral">Integral</button>
+        <button class="tab" data-categoria="panaderia_dulce">Dulces</button>
+        <button class="tab" data-categoria="panaderia_especial">Especiales</button>
+      </div>
+      
+      <!-- Filtro de búsqueda y precio -->
+      <div class="filtros">
+        <input type="text" id="buscador" placeholder="Buscar producto...">
+        <select id="filtroPrecio">
+          <option value="todos">Todos los precios</option>
+          <option value="menor5">Menor a S/5</option>
+          <option value="entre6y15">S/6 a S/15</option>
+          <option value="mayor16">Mayor a S/16</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Grid de productos -->
+    <div class="grid-productos" id="grid-productos"></div>
   </main>
 
+  <div class="grid-productos" id="grid-productos"></div>
+  </main>
+
+  <!-- Scripts ESENCIALES primero -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/carrito.js"></script>
   <script src="js/main.js"></script>
+
+  <!-- Script de inicialización ÚNICO -->
   <script>
-    // Obtén el ID del producto de la URL
+    // Inicializar carrito una sola vez
+    document.addEventListener('DOMContentLoaded', () => {
+    const carrito = new Carrito();
+    
+    // Delegación de eventos para productos
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-agregar')) {
+            const id = parseInt(e.target.dataset.id);
+            const producto = productos.find(p => p.id === id);
+            if (producto) {
+                const cantidad = 1; // O obtén la cantidad del input correspondiente
+                carrito.agregarProducto(producto, cantidad);
+                
+                // Actualizar contador en el navbar
+                const contador = document.getElementById('contador-carrito');
+                if (contador) {
+                    contador.textContent = carrito.items.reduce((sum, item) => sum + item.cantidad, 0);
+                }
+            }
+        }
+    });
+});
+
+    // Manejar producto individual
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
     
-    // Busca el producto en el array de productos (de main.js)
-    const producto = productos.find(p => p.id == productId);
-    
-    if (producto) {
-      document.getElementById('producto-detalle-container').innerHTML = `
-        <img src="${producto.imagen}" alt="${producto.nombre}">
-        <h2>${producto.nombre}</h2>
-        <p class="precio">${formatPrice(producto.precio)}</p>
-        <p>${producto.descripcion}</p>
-        <button class="btn-agregar" data-id="${producto.id}">Agregar al carrito</button>
-      `;
+    if (productId) {
+      const producto = productos.find(p => p.id == productId);
+      
+      if (producto) {
+        document.getElementById('producto-detalle-container').innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}">
+          <h2>${producto.nombre}</h2>
+          <p class="precio">${formatPrice(producto.precio)}</p>
+          <p>${producto.descripcion}</p>
+          
+          <div class="controles-cantidad">
+            <button class="btn-cantidad btn-disminuir">-</button>
+            <span class="cantidad">1</span>
+            <button class="btn-cantidad btn-aumentar">+</button>
+          </div>
+          
+          <button class="btn-agregar" data-id="${producto.id}">Agregar al carrito</button>
+        `;
+      }
     }
+
+    // Delegación de eventos para TODOS los botones
+    document.addEventListener('click', (e) => {
+      // Aumentar cantidad
+      if (e.target.classList.contains('btn-aumentar')) {
+        const span = e.target.previousElementSibling;
+        span.textContent = parseInt(span.textContent) + 1;
+      }
+      
+      // Disminuir cantidad
+      if (e.target.classList.contains('btn-disminuir')) {
+        const span = e.target.nextElementSibling;
+        if (parseInt(span.textContent) > 1) {
+          span.textContent = parseInt(span.textContent) - 1;
+        }
+      }
+      
+      // Agregar al carrito
+      if (e.target.classList.contains('btn-agregar')) {
+        const id = parseInt(e.target.dataset.id);
+        const producto = productos.find(p => p.id === id);
+        if (producto) {
+          const cantidad = parseInt(e.target.closest('.controles-cantidad').querySelector('.cantidad').textContent);
+          carrito.agregarProducto({...producto, cantidad});
+          showToast('Producto agregado al carrito');
+        }
+      }
+    });
   </script>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Contacto</h3>
+        <p>📞 <a href="tel:+51999999999">999 999 999</a></p>
+        <p>📧 <a href="mailto:panaderiarutadelsabor@gmail.com">panaderiaHappypan@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Redes</h4>
+        <p>
+          <a href="https://www.facebook.com/" target="_blank">Facebook</a> ·  
+          <a href="https://www.instagram.com/" target="_blank">Instagram</a> ·  
+          <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjVzeq5h5ONAxV6DbkGHeRpHjIQFnoECAsQAQ&url=https%3A%2F%2Fweb.whatsapp.com%2F&usg=AOvVaw1V09js0t2A_u6GXzP1jPsR&opi=89978449" target="_blank">WhatsApp</a>
+        </p>
+      </div>
+      <div>
+        <h5>Explora</h5>
+        <p>
+          <a href="index.html">Inicio</a>
+          <a href="producto.html">Productos</a>
+          <a href="contacto.html">Contacto</a>
+          <a href="checkout.html">Pedidos</a>
+        </p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 Panadería Happy Pan. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/carrito.js"></script>
 </body>
 </html>

@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>¡Gracias por tu compra! | Panadería Verde</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <header class="header">
-    <!-- Mismo header que index.html -->
-  </header>
+  <head>
+    <meta charset="UTF-8">
+    <title>Contacto | Panadería Verde</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  </head>
+  <body>
+      <header class="header">
+          <div class="container">
+            <div class="nav-container">
+            <nav class="navbar">
+              <a href="index.html" class="logo-link">
+                <img src="img/otros/logo.png" alt="Logo Happy Pan" class="logo"></a>
+              <a href="index.html">Inicio</a>
+              <a href="producto.html">Productos</a>
+              <a href="contacto.html">Contacto</a>
+              <a href="checkout.html">Pedidos</a>
+              <a href="carrito.html" class="btn-carrito">
+                  <i class="fas fa-shopping-cart"></i> 
+                  <span id="contador-carrito">0</span>
+              </a>
+            </nav>
+          </div>
+      </header>
 
   <main class="container confirmacion">
     <div class="confirmacion-card">
@@ -41,5 +56,11 @@
       localStorage.removeItem('carrito');
     });
   </script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/carrito.js"></script>
 </body>
 </html>

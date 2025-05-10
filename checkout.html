@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Checkout | Panadería Verde</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <header class="header">
-    <!-- Mismo header que index.html -->
-  </header>
+  <head>
+    <meta charset="UTF-8">
+    <title>Contacto | Panadería Verde</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  </head>
+  <body>
+      <header class="header">
+          <div class="container">
+            <div class="nav-container">
+            <nav class="navbar">
+              <a href="index.html" class="logo-link">
+                <img src="img/otros/logo.png" alt="Logo Happy Pan" class="logo"></a>
+              <a href="index.html">Inicio</a>
+              <a href="producto.html">Productos</a>
+              <a href="contacto.html">Contacto</a>
+              <a href="checkout.html">Pedidos</a>
+              <a href="carrito.html" class="btn-carrito">
+                  <i class="fas fa-shopping-cart"></i> 
+                  <span id="contador-carrito">0</span>
+              </a>
+            </nav>
+          </div>
+      </header>
 
   <main class="container checkout">
     <h2>Finalizar Compra</h2>
+    
+    <section>
+      <h1>Panadería Artesanal Ecológica</h1>
+      <a href="producto.html" class="btn-cta">Explorar más productos</a>
+    </section>
     
     <div class="resumen-pedido">
       <h3>Tu Pedido</h3>
@@ -50,19 +70,64 @@
   <script src="js/carrito.js"></script>
   <script src="js/checkout.js"></script>
   <script>
+    // Verificar autenticación al cargar checkout
+    auth.onAuthStateChanged((user) => {
+        if (!user) {
+            showToast('Debes iniciar sesión para continuar', 'error');
+            window.location.href = `login.html?redirect=checkout.html`;
+        }
+    });
     // Cargar carrito en checkout
     const carrito = new Carrito();
     const resumen = document.getElementById('resumen-productos');
-    
-    if (resumen) {
-      resumen.innerHTML = carrito.items.map(item => `
-        <div class="item-checkout">
-          <p>${item.nombre} - ${formatPrice(item.precio)}</p>
-        </div>
-      `).join('');
-      
-      document.getElementById('total-checkout').textContent = formatPrice(carrito.calcularTotal());
+
+    if (resumen && carrito.items.length > 0) {
+        resumen.innerHTML = carrito.items.map(item => `
+            <div class="item-checkout">
+                <p>${item.nombre} x ${item.cantidad} - ${formatPrice(item.precio * item.cantidad)}</p>
+            </div>
+        `).join('');
+        
+        document.getElementById('total-checkout').textContent = formatPrice(carrito.calcularTotal());
+    } else if (resumen) {
+        resumen.innerHTML = '<p>No hay productos en el carrito</p>';
+        window.location.href = 'producto.html'; // Redirigir si el carrito está vacío
     }
   </script>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Contacto</h3>
+        <p>📞 <a href="tel:+51999999999">999 999 999</a></p>
+        <p>📧 <a href="mailto:panaderiarutadelsabor@gmail.com">panaderiaHappypan@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Redes</h4>
+        <p>
+          <a href="https://www.facebook.com/" target="_blank">Facebook</a> ·  
+          <a href="https://www.instagram.com/" target="_blank">Instagram</a> ·  
+          <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjVzeq5h5ONAxV6DbkGHeRpHjIQFnoECAsQAQ&url=https%3A%2F%2Fweb.whatsapp.com%2F&usg=AOvVaw1V09js0t2A_u6GXzP1jPsR&opi=89978449" target="_blank">WhatsApp</a>
+        </p>
+      </div>
+      <div>
+        <h5>Explora</h5>
+        <p>
+          <a href="index.html">Inicio</a>
+          <a href="producto.html">Productos</a>
+          <a href="contacto.html">Contacto</a>
+          <a href="checkout.html">Pedidos</a>
+        </p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 Panadería Happy Pan. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/carrito.js"></script>
 </body>
 </html>

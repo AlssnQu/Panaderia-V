@@ -18,7 +18,7 @@ const firebaseConfig = {
       .then((userCredential) => {
         const user = userCredential.user;
         user.updateProfile({ displayName: nombre });
-        alert("¡Registro exitoso!");
+        alert("Registro exitoso");
         window.location.href = "index.html";
       })
       .catch((error) => {
